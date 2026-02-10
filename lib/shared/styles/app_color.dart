@@ -1,13 +1,48 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
+  AppColor._();
+
+  // Primary
   static const Color primary = Color(0xFF635BFF);
-  static const Color primaryDark = Color(0xFF635BFF);
-  static const Color white = Color(0xFFFFFFFF);
-  static const Color black = Color(0xFF000000);
-  static const Color mainGrey = Color(0xFFC7C7C7);
-  static const Color lightGrey = Color(0xFFF1F0EF);
-  static const Color blueGrey1 = Color(0xFFF9FAFB);
-  static const Color blueGrey2 = Color(0xFFE2E8F0);
-  static const Color secondaryGrey = Color(0xFFE6E4E4);
+  static const Color primaryLight = Color(0xFFE6ECFF);
+  static const Color primarySurface = Color(0xFFE6E4E4);
+  static const Color onPrimary = Color(0xFFFFFFFF);
+
+  // Neutral / Surface
+  static const Color background = Color(0xFFF9FAFB);
+  static const Color surface = Color(0xFFFFFFFF);
+  static const Color surfaceVariant = Color(0xFFF1F0EF);
+  static const Color backgroundAlt = Color(0xFFE3F2FD);
+
+  // Border / Divider
+  static const Color border = Color(0xFFE2E8F0);
+  static const Color divider = Color(0xFFE6E4E4);
+
+  // Text
+  static const Color textPrimary = Color(0xFF1A1A2E);
+  static const Color textSecondary = Color(0xFF374151);
+  static const Color textTertiary = Color(0xFF6B7280);
+  static const Color textHint = Color(0xFF9CA3AF);
+  static const Color textOnPrimary = Color(0xFFFFFFFF);
+
+  // Semantic / Status
+  static const Color success = Color(0xFF22C55E);
+  static const Color successDark = Color(0xFF16A34A);
+  static const Color warning = Color(0xFFFBBF24);
+  static const Color warningDark = Color(0xFFF59E0B);
+  static const Color error = Color(0xFFEF4444);
+  static const Color errorDark = Color(0xFFDC2626);
+  static const Color errorLight = Color(0xFFFEE2E2);
+  static const Color info = Color(0xFF3B82F6);
+
+  // Shadows
+  static const Color shadow = Color(0x14000000);
+  static const Color shadowLight = Color(0x0D000000);
+
+  // Input Field
+  static const Color inputFill = Color(0xFFFAFAFA);
+  static const Color inputFillDisabled = Color(0xFFEEEEEE);
+  static const Color inputBorder = Color(0xFFE0E0E0);
+  static const Color inputIcon = Color(0xFF757575);
 }
