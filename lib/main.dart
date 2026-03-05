@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Jawara Pintar',
       theme: AppTheme.light,
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.splashRoute,
+      initialRoute: Routes.onboardingRoute,
       getPages: Pages.page,
     );
   }

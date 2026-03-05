@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:jawara_mobile/configs/routes/route.dart';
+import 'package:jawara_mobile/modules/features/login/bindings/login_binding.dart';
+import 'package:jawara_mobile/modules/features/login/view/ui/login_screen.dart';
 import 'package:jawara_mobile/modules/features/main/bindings/main_binding.dart';
 import 'package:jawara_mobile/modules/features/main/view/ui/main_screen.dart';
 import 'package:jawara_mobile/modules/features/onboarding/bindings/onboarding_binding.dart';
@@ -23,6 +25,11 @@ abstract class Pages {
       name: Routes.onboardingRoute,
       page: () => const OnboardingScreen(),
       binding: OnboardingBinding(),
+    ),
+    GetPage(
+      name: Routes.loginRoute,
+      page: () => const LoginScreen(),
+      binding: LoginBinding(),
     ),
   ];
 }

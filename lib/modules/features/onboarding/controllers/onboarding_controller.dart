@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jawara_mobile/configs/routes/route.dart';
 import 'package:jawara_mobile/modules/features/onboarding/constants/onboarding_assets_constant.dart';
 import 'package:jawara_mobile/modules/features/onboarding/models/onboarding_model.dart';
 
@@ -60,9 +61,15 @@ class OnboardingController extends GetxController {
         curve: Curves.easeInOut,
       );
     } else {
+      Get.offNamed(Routes.loginRoute);
     }
   }
 
   void skipOnboarding() {
+    pageController.animateToPage(
+      onboardingPages.length - 1,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 }
