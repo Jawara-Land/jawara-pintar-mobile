@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jawara_mobile/configs/routes/route.dart';
 import 'package:jawara_mobile/modules/features/onboarding/controllers/onboarding_controller.dart';
 import 'package:jawara_mobile/modules/features/onboarding/views/components/onboarding_page.dart';
 import 'package:jawara_mobile/shared/styles/app_styles.dart';
@@ -12,7 +13,6 @@ class OnboardingScreen extends GetView<OnboardingController> {
     return Scaffold(
       body: Stack(
         children: [
-          
           PageView.builder(
             controller: controller.pageController,
             onPageChanged: controller.onPageChanged,
@@ -68,7 +68,9 @@ class OnboardingScreen extends GetView<OnboardingController> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 10),
+
+                    SizedBox(height: 10),
+
                     Text(
                       page.description,
                       style: AppTextStyle.headingSmall.copyWith(
@@ -96,7 +98,6 @@ class OnboardingScreen extends GetView<OnboardingController> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Dots Indicator
                   Obx(() {
                     final isLastPage =
                         controller.currentPage.value ==
@@ -160,27 +161,26 @@ class OnboardingScreen extends GetView<OnboardingController> {
                         controller.currentPage.value ==
                         controller.onboardingPages.length - 1;
                     if (isLastPage) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Belum punya akun? ',
-                            style: AppTextStyle.bodyLarge.copyWith(
-                              color: AppColor.textOnPrimary,
+                      return GestureDetector(
+                        onTap: () => Get.toNamed(Routes.registerRoute),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Belum punya akun? ',
+                              style: AppTextStyle.bodyLarge.copyWith(
+                                color: AppColor.textOnPrimary,
+                              ),
                             ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                            },
-                            child: Text(
+                            Text(
                               'Daftar',
                               style: AppTextStyle.bodyLarge.copyWith(
                                 color: AppColor.textOnPrimary,
                                 fontWeight: FontWeight.w900,
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
                     }
                     return SizedBox.shrink();

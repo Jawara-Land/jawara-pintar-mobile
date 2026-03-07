@@ -103,43 +103,41 @@ class LoginScreen extends GetView<LoginController> {
 
                         SizedBox(height: 8),
 
-                        Obx(
-                          () => TextFormField(
-                            controller: controller.emailCtrl,
-                            keyboardType: TextInputType.emailAddress,
-                            onChanged: (value) {
-                              controller.emailValue.value = value;
-                            },
-                            decoration: InputDecoration(
-                              hintText: 'admin@mail.com',
-                              hintStyle: AppTextStyle.inputHint,
-                              filled: true,
-                              fillColor: AppColor.inputFill,
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(
-                                  color: AppColor.inputBorder,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(
-                                  color: AppColor.primary,
-                                  width: 1.5,
-                                ),
+                        TextFormField(
+                          controller: controller.emailCtrl,
+                          keyboardType: TextInputType.emailAddress,
+                          onChanged: (value) {
+                            controller.emailValue.value = value;
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'admin@mail.com',
+                            hintStyle: AppTextStyle.inputHint,
+                            filled: true,
+                            fillColor: AppColor.inputFill,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                color: AppColor.inputBorder,
                               ),
                             ),
-                            style: AppTextStyle.bodyMedium,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Email tidak boleh kosong';
-                              }
-                              if (!GetUtils.isEmail(value)) {
-                                return 'Email tidak valid';
-                              }
-                              return null;
-                            },
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                color: AppColor.primary,
+                                width: 1.5,
+                              ),
+                            ),
                           ),
+                          style: AppTextStyle.bodyMedium,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Email tidak boleh kosong';
+                            }
+                            if (!GetUtils.isEmail(value)) {
+                              return 'Email tidak valid';
+                            }
+                            return null;
+                          },
                         ),
 
                         SizedBox(height: 20),
@@ -148,69 +146,65 @@ class LoginScreen extends GetView<LoginController> {
 
                         SizedBox(height: 8),
 
-                        Obx(
-                          () => TextFormField(
-                            controller: controller.passwordCtrl,
-                            obscureText: controller.isPassword.value,
-                            onChanged: (value) {
-                              controller.passwordValue.value = value;
-                            },
-                            decoration: InputDecoration(
-                              hintText: '••••••••',
-                              hintStyle: AppTextStyle.inputHint,
-                              filled: true,
-                              fillColor: AppColor.inputFill,
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(
-                                  color: AppColor.inputBorder,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(
-                                  color: AppColor.primary,
-                                  width: 1.5,
-                                ),
-                              ),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  controller.isPassword.value
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
-                                  color: AppColor.inputIcon,
-                                ),
-                                onPressed: controller.toogleShowPassword,
+                        TextFormField(
+                          controller: controller.passwordCtrl,
+                          obscureText: controller.isPassword.value,
+                          onChanged: (value) {
+                            controller.passwordValue.value = value;
+                          },
+                          decoration: InputDecoration(
+                            hintText: '••••••••',
+                            hintStyle: AppTextStyle.inputHint,
+                            filled: true,
+                            fillColor: AppColor.inputFill,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                color: AppColor.inputBorder,
                               ),
                             ),
-                            style: AppTextStyle.bodyMedium,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Password tidak boleh kosong';
-                              }
-                              if (value.length < 6) {
-                                return 'Password minimal 6 karakter';
-                              }
-                              return null;
-                            },
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(
+                                color: AppColor.primary,
+                                width: 1.5,
+                              ),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                controller.isPassword.value
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: AppColor.inputIcon,
+                              ),
+                              onPressed: controller.toogleShowPassword,
+                            ),
                           ),
+                          style: AppTextStyle.bodyMedium,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Password tidak boleh kosong';
+                            }
+                            if (value.length < 6) {
+                              return 'Password minimal 6 karakter';
+                            }
+                            return null;
+                          },
                         ),
 
                         SizedBox(height: 24),
 
-                        Obx(
-                          () => SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColor.primary,
-                              ),
-                              onPressed: () => Get.offNamed(Routes.mainRoute),
-                              child: Text(
-                                'Login',
-                                style: AppTextStyle.headingMedium.copyWith(
-                                  color: AppColor.textOnPrimary,
-                                ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColor.primary,
+                            ),
+                            onPressed: () => Get.offNamed(Routes.mainRoute),
+                            child: Text(
+                              'Login',
+                              style: AppTextStyle.headingMedium.copyWith(
+                                color: AppColor.textOnPrimary,
                               ),
                             ),
                           ),
@@ -218,26 +212,27 @@ class LoginScreen extends GetView<LoginController> {
 
                         SizedBox(height: 16),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Belum Punya akun? ',
-                              style: AppTextStyle.headingSmall.copyWith(
-                                fontWeight: FontWeight.w500,
+                        GestureDetector(
+                          onTap: () => Get.toNamed(Routes.registerRoute),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Belum Punya akun? ',
+                                style: AppTextStyle.headingSmall.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: Text(
+
+                              Text(
                                 'Daftar',
                                 style: AppTextStyle.headingSmall.copyWith(
                                   color: AppColor.primary,
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),
