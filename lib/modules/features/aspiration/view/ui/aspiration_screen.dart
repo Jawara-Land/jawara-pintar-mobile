@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jawara_mobile/modules/features/aspiration/constants/aspiration_assets_constant.dart';
 import 'package:jawara_mobile/shared/styles/app_styles.dart';
 
 class AspirationScreen extends StatelessWidget {
-  AspirationScreen({super.key});
-
-  final assetsConstant = AspirationAssetsConstant();
+  const AspirationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +33,9 @@ class AspirationScreen extends StatelessWidget {
             statusTextColor: AppColor.textPrimary,
             date: '25 Desember 2026',
           ),
-          const SizedBox(height: 12),
+
+          SizedBox(height: 12),
+
           _buildAspirationCard(
             title: 'Got Tersumbat',
             author: 'Bu Andin',
@@ -45,7 +44,9 @@ class AspirationScreen extends StatelessWidget {
             statusTextColor: AppColor.textPrimary,
             date: '13 November 2026',
           ),
-          const SizedBox(height: 12),
+
+          SizedBox(height: 12),
+
           _buildAspirationCard(
             title: 'Jalan Ambles',
             author: 'Pak Ali',
@@ -86,12 +87,7 @@ class AspirationScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: Text(
-                  title,
-                  style: AppTextStyle.titleLarge,
-                ),
-              ),
+              Expanded(child: Text(title, style: AppTextStyle.titleLarge)),
               IconButton(
                 icon: const Icon(Icons.more_vert, size: 20),
                 onPressed: () {},
@@ -105,16 +101,17 @@ class AspirationScreen extends StatelessWidget {
             children: [
               const Icon(Icons.person, size: 20, color: AppColor.textSecondary),
               const SizedBox(width: 8),
-              Text(
-                author,
-                style: AppTextStyle.bodySmall,
-              ),
+              Text(author, style: AppTextStyle.bodySmall),
             ],
           ),
           const SizedBox(height: 8),
           Row(
             children: [
-              const Icon(Icons.schedule, size: 20, color: AppColor.textSecondary),
+              const Icon(
+                Icons.schedule,
+                size: 20,
+                color: AppColor.textSecondary,
+              ),
               const SizedBox(width: 8),
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -135,11 +132,10 @@ class AspirationScreen extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            date,
-            style: AppTextStyle.bodySmall,
-          ),
+
+          SizedBox(height: 8),
+
+          Text(date, style: AppTextStyle.bodySmall),
         ],
       ),
     );
