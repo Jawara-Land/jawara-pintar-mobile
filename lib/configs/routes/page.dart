@@ -4,6 +4,8 @@ import 'package:jawara_mobile/modules/features/login/bindings/login_binding.dart
 import 'package:jawara_mobile/modules/features/login/view/ui/login_screen.dart';
 import 'package:jawara_mobile/modules/features/main/bindings/main_binding.dart';
 import 'package:jawara_mobile/modules/features/main/view/ui/main_screen.dart';
+import 'package:jawara_mobile/modules/features/marketplace/bindings/marketplace_binding.dart';
+import 'package:jawara_mobile/modules/features/marketplace/view/ui/marketplace_screen.dart';
 import 'package:jawara_mobile/modules/features/onboarding/bindings/onboarding_binding.dart';
 import 'package:jawara_mobile/modules/features/onboarding/views/ui/onboarding_screen.dart';
 import 'package:jawara_mobile/modules/features/register/bindings/register_binding.dart';
@@ -37,6 +39,11 @@ abstract class Pages {
       name: Routes.registerRoute,
       page: () => const RegisterScreen(),
       binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: Routes.marketplaceRoute,
+      page: () => MarketplaceScreen(),
+      binding: MarketplaceBinding(),
     ),
   ];
 }

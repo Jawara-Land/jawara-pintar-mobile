@@ -8,4 +8,5 @@ abstract class Routes {
   static const String announcementRoute = '/announcement';
   static const String aspirationRoute = '/aspiration';
   static const String profileRoute = '/profile';
+  static const String marketplaceRoute = '/marketplace';
 }
