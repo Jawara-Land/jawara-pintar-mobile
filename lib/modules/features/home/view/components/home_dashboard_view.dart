@@ -78,7 +78,9 @@ class HomeDashboardView extends StatelessWidget {
                   HomeQuickAction(
                     icon: Icons.store,
                     label: 'Pasar Lokal',
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.marketplaceRoute);
+                    },
                   ),
                   HomeQuickAction(
                     icon: Icons.message,
