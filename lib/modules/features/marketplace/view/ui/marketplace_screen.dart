@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jawara_mobile/modules/features/marketplace/constants/marketplace_assets_constant.dart';
 import 'package:jawara_mobile/shared/styles/app_styles.dart';
 
 class MarketplaceScreen extends StatefulWidget {
-  MarketplaceScreen({super.key});
-
-  final assetsConstant = MarketplaceAssetsConstant();
+  const MarketplaceScreen({super.key});
 
   @override
   State<MarketplaceScreen> createState() => _MarketplaceScreenState();
@@ -84,7 +81,6 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Search & Filter Bar
             Padding(
               padding: const EdgeInsets.all(16),
               child: Row(
@@ -125,7 +121,9 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 12),
+
+                  SizedBox(width: 12),
+
                   Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
@@ -145,7 +143,6 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
               ),
             ),
 
-            // Seller Banner
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Container(
@@ -173,15 +170,20 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                             color: AppColor.textOnPrimary,
                           ),
                         ),
-                        const SizedBox(height: 4),
+
+                        SizedBox(height: 4),
+
                         Text(
                           'Jual produk Anda sekarang',
                           style: AppTextStyle.labelSmall.copyWith(
-                            color: AppColor.textOnPrimary.withValues(alpha: 0.7),
+                            color: AppColor.textOnPrimary.withValues(
+                              alpha: 0.7,
+                            ),
                           ),
                         ),
                       ],
                     ),
+
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 12,
@@ -203,9 +205,9 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
 
-            // Tabs
+            SizedBox(height: 16),
+
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -249,9 +251,9 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 16),
 
-            // Products Grid
+            SizedBox(height: 16),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: GridView.builder(
@@ -269,7 +271,8 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                 },
               ),
             ),
-            const SizedBox(height: 24),
+
+            SizedBox(height: 24),
           ],
         ),
       ),
@@ -305,11 +308,7 @@ class _MarketplaceScreenState extends State<MarketplaceScreen> {
                   topRight: Radius.circular(12),
                 ),
               ),
-              child: Icon(
-                product.image,
-                size: 50,
-                color: AppColor.primary,
-              ),
+              child: Icon(product.image, size: 50, color: AppColor.primary),
             ),
 
             // Product Info
