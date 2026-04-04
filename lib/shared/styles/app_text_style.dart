@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:jawara_mobile/shared/styles/app_color.dart';
 
 class AppTextStyle {
-  AppTextStyle._(); 
+  AppTextStyle._();
 
   static TextStyle get displayLarge => GoogleFonts.figtree(
     fontSize: 36,
@@ -93,7 +93,7 @@ class AppTextStyle {
   );
 
   static TextStyle get caption => GoogleFonts.figtree(
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: FontWeight.w500,
     color: AppColor.textTertiary,
   );
@@ -107,6 +107,12 @@ class AppTextStyle {
 
   static TextStyle get inputHint => GoogleFonts.figtree(
     fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: AppColor.textHint,
+  );
+
+  static TextStyle get inputHintLarge => GoogleFonts.figtree(
+    fontSize: 16,
     fontWeight: FontWeight.w400,
     color: AppColor.textHint,
   );
