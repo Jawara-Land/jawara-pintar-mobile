@@ -475,32 +475,80 @@ class RegisterScreen extends GetView<RegisterController> {
 
                             SizedBox(height: 8),
 
-                            Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: AppColor.inputFill,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: AppColor.inputBorder),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 32,
-                                horizontal: 16,
-                              ),
-                              child: Column(
-                                children: [
-                                  Icon(
-                                    Icons.image_outlined,
-                                    size: 32,
-                                    color: AppColor.textHint,
-                                  ),
-                                  const SizedBox(height: 12),
-                                  Text(
-                                    'Unggah foto KK/KTP',
-                                    style: AppTextStyle.bodyLarge.copyWith(
-                                      color: AppColor.textTertiary,
+                            Obx(
+                              () => GestureDetector(
+                                onTap: controller.pickKtpImage,
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: AppColor.inputFill,
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: AppColor.inputBorder,
                                     ),
                                   ),
-                                ],
+                                  clipBehavior: Clip.antiAlias,
+                                  child:
+                                      controller.selectedKtpImage.value != null
+                                      ? Stack(
+                                          children: [
+                                            Image.file(
+                                              controller
+                                                  .selectedKtpImage
+                                                  .value!,
+                                              width: double.infinity,
+                                              height: 200,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Positioned(
+                                              top: 8,
+                                              right: 8,
+                                              child: GestureDetector(
+                                                onTap:
+                                                    controller.removeKtpImage,
+                                                child: Container(
+                                                  padding: const EdgeInsets.all(
+                                                    4,
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.black54,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: const Icon(
+                                                    Icons.close,
+                                                    color: Colors.white,
+                                                    size: 20,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 32,
+                                            horizontal: 16,
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Icon(
+                                                Icons.image_outlined,
+                                                size: 32,
+                                                color: AppColor.textHint,
+                                              ),
+                                              const SizedBox(height: 12),
+                                              Text(
+                                                'Unggah foto KK/KTP',
+                                                style: AppTextStyle.bodyLarge
+                                                    .copyWith(
+                                                      color:
+                                                          AppColor.textTertiary,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                ),
                               ),
                             ),
 
