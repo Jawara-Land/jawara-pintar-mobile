@@ -37,9 +37,9 @@ class HomeHeader extends StatelessWidget {
               ],
             );
           }),
-          
+
           Spacer(),
-          
+
           Stack(
             clipBehavior: Clip.none,
             children: [

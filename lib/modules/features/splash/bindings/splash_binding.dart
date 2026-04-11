@@ -4,6 +4,6 @@ import 'package:jawara_mobile/modules/features/splash/controllers/splash_control
 class SplashBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<SplashController>(() => SplashController());
+    Get.put<SplashController>(SplashController());
   }
 }

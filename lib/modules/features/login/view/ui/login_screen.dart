@@ -99,45 +99,106 @@ class LoginScreen extends GetView<LoginController> {
 
                         SizedBox(height: 24),
 
+                        Obx(() {
+                          if (controller.errorMessage.value.isEmpty) {
+                            return const SizedBox.shrink();
+                          }
+                          return Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(bottom: 16),
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                              color: AppColor.errorLight,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: AppColor.error.withValues(alpha: 0.3),
+                                width: 1,
+                              ),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.error_outline,
+                                  color: AppColor.errorDark,
+                                  size: 20,
+                                ),
+
+                                SizedBox(width: 10),
+
+                                Expanded(
+                                  child: Text(
+                                    controller.errorMessage.value,
+                                    style: AppTextStyle.bodyMedium.copyWith(
+                                      color: AppColor.errorDark,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
+
                         Text('Email', style: AppTextStyle.headingSmall),
 
                         SizedBox(height: 8),
 
-                        TextFormField(
-                          controller: controller.emailCtrl,
-                          keyboardType: TextInputType.emailAddress,
-                          onChanged: (value) {
-                            controller.emailValue.value = value;
-                          },
-                          decoration: InputDecoration(
-                            hintText: 'admin@mail.com',
-                            hintStyle: AppTextStyle.inputHint,
-                            filled: true,
-                            fillColor: AppColor.inputFill,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(
-                                color: AppColor.inputBorder,
+                        Obx(
+                          () => TextFormField(
+                            controller: controller.emailCtrl,
+                            keyboardType: TextInputType.emailAddress,
+                            enabled: !controller.isLoading.value,
+                            onChanged: (value) {
+                              controller.emailValue.value = value;
+
+                              if (controller.emailError.value.isNotEmpty) {
+                                controller.emailError.value = '';
+                              }
+                              if (controller.errorMessage.value.isNotEmpty) {
+                                controller.errorMessage.value = '';
+                              }
+                            },
+                            decoration: InputDecoration(
+                              hintText: 'admin@mail.com',
+                              hintStyle: AppTextStyle.inputHint,
+                              filled: true,
+                              fillColor: controller.isLoading.value
+                                  ? AppColor.inputFillDisabled
+                                  : AppColor.inputFill,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(
+                                  color: controller.emailError.value.isNotEmpty
+                                      ? AppColor.error.withValues(alpha: 0.6)
+                                      : AppColor.inputBorder,
+                                ),
                               ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(
-                                color: AppColor.primary,
-                                width: 1.5,
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(
+                                  color: controller.emailError.value.isNotEmpty
+                                      ? AppColor.error
+                                      : AppColor.primary,
+                                  width: 1.5,
+                                ),
                               ),
+
+                              errorText: controller.emailError.value.isNotEmpty
+                                  ? controller.emailError.value
+                                  : null,
                             ),
+                            style: AppTextStyle.bodyMedium,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Email tidak boleh kosong';
+                              }
+                              if (!GetUtils.isEmail(value)) {
+                                return 'Email tidak valid';
+                              }
+                              return null;
+                            },
                           ),
-                          style: AppTextStyle.bodyMedium,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Email tidak boleh kosong';
-                            }
-                            if (!GetUtils.isEmail(value)) {
-                              return 'Email tidak valid';
-                            }
-                            return null;
-                          },
                         ),
 
                         SizedBox(height: 20),
@@ -146,66 +207,107 @@ class LoginScreen extends GetView<LoginController> {
 
                         SizedBox(height: 8),
 
-                        TextFormField(
-                          controller: controller.passwordCtrl,
-                          obscureText: controller.isPassword.value,
-                          onChanged: (value) {
-                            controller.passwordValue.value = value;
-                          },
-                          decoration: InputDecoration(
-                            hintText: '••••••••',
-                            hintStyle: AppTextStyle.inputHint,
-                            filled: true,
-                            fillColor: AppColor.inputFill,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(
-                                color: AppColor.inputBorder,
+                        Obx(
+                          () => TextFormField(
+                            controller: controller.passwordCtrl,
+                            obscureText: controller.isPassword.value,
+                            enabled: !controller.isLoading.value,
+                            onChanged: (value) {
+                              controller.passwordValue.value = value;
+
+                              if (controller.passwordError.value.isNotEmpty) {
+                                controller.passwordError.value = '';
+                              }
+                              if (controller.errorMessage.value.isNotEmpty) {
+                                controller.errorMessage.value = '';
+                              }
+                            },
+                            decoration: InputDecoration(
+                              hintText: '••••••••',
+                              hintStyle: AppTextStyle.inputHint,
+                              filled: true,
+                              fillColor: controller.isLoading.value
+                                  ? AppColor.inputFillDisabled
+                                  : AppColor.inputFill,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(
+                                  color:
+                                      controller.passwordError.value.isNotEmpty
+                                      ? AppColor.error.withValues(alpha: 0.6)
+                                      : AppColor.inputBorder,
+                                ),
                               ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(
-                                color: AppColor.primary,
-                                width: 1.5,
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(
+                                  color:
+                                      controller.passwordError.value.isNotEmpty
+                                      ? AppColor.error
+                                      : AppColor.primary,
+                                  width: 1.5,
+                                ),
                               ),
-                            ),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                controller.isPassword.value
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: AppColor.inputIcon,
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  controller.isPassword.value
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: AppColor.inputIcon,
+                                ),
+                                onPressed: controller.isLoading.value
+                                    ? null
+                                    : controller.toogleShowPassword,
                               ),
-                              onPressed: controller.toogleShowPassword,
+
+                              errorText:
+                                  controller.passwordError.value.isNotEmpty
+                                  ? controller.passwordError.value
+                                  : null,
                             ),
+                            style: AppTextStyle.bodyMedium,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Password tidak boleh kosong';
+                              }
+                              if (value.length < 6) {
+                                return 'Password minimal 6 karakter';
+                              }
+                              return null;
+                            },
                           ),
-                          style: AppTextStyle.bodyMedium,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Password tidak boleh kosong';
-                            }
-                            if (value.length < 6) {
-                              return 'Password minimal 6 karakter';
-                            }
-                            return null;
-                          },
                         ),
 
                         SizedBox(height: 24),
 
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColor.primary,
-                            ),
-                            onPressed: () => Get.offNamed(Routes.mainRoute),
-                            child: Text(
-                              'Login',
-                              style: AppTextStyle.headingMedium.copyWith(
-                                color: AppColor.textOnPrimary,
+                        Obx(
+                          () => SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: controller.isLoading.value
+                                    ? AppColor.primary.withValues(alpha: 0.7)
+                                    : AppColor.primary,
                               ),
+                              onPressed: controller.isLoading.value
+                                  ? null
+                                  : () => controller.login(),
+                              child: controller.isLoading.value
+                                  ? const SizedBox(
+                                      height: 24,
+                                      width: 24,
+                                      child: CircularProgressIndicator(
+                                        color: AppColor.onPrimary,
+                                        strokeWidth: 2.5,
+                                      ),
+                                    )
+                                  : Text(
+                                      'Login',
+                                      style: AppTextStyle.headingMedium
+                                          .copyWith(
+                                            color: AppColor.textOnPrimary,
+                                          ),
+                                    ),
                             ),
                           ),
                         ),

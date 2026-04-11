@@ -32,10 +32,10 @@ class SplashScreen extends GetView<SplashController> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(24),
                 child: Image.asset(
-                  SplashAssetsConstant().appLogo,
+                  SplashAssetsConstant.appLogo,
                   width: 80,
                   height: 80,
-                  errorBuilder: (context, error, stackTrace) => const Icon(
+                  errorBuilder: (context, error, stackTrace) => Icon(
                     Icons.location_city,
                     size: 50,
                     color: AppColor.primary,
@@ -43,7 +43,8 @@ class SplashScreen extends GetView<SplashController> {
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+
+            SizedBox(height: 24),
 
             Text(
               'Jawara Pintar',
@@ -51,7 +52,9 @@ class SplashScreen extends GetView<SplashController> {
                 color: AppColor.textOnPrimary,
               ),
             ),
-            const SizedBox(height: 8),
+
+            SizedBox(height: 8),
+
             Text(
               'Sistem Informasi Perumahan Jawara Land',
               style: AppTextStyle.bodyLarge.copyWith(

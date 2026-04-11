@@ -17,7 +17,7 @@ abstract class Pages {
   static final page = [
     GetPage(
       name: Routes.splashRoute,
-      page: () => const SplashScreen(),
+      page: () => SplashScreen(),
       binding: SplashBinding(),
     ),
     GetPage(

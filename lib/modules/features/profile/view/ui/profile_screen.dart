@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jawara_mobile/modules/features/profile/controllers/profile_controller.dart';
 import 'package:jawara_mobile/shared/controllers/auth_controller.dart';
 import 'package:jawara_mobile/shared/styles/app_styles.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends GetView<ProfileController> {
   const ProfileScreen({super.key});
 
   @override
@@ -16,48 +17,60 @@ class ProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 24),
             children: [
               Center(
-                child: Column(
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColor.primaryLight,
-                      ),
-                      child: Icon(
-                        Icons.person,
-                        size: 60,
-                        color: AppColor.primary,
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    Text(
-                      'name',
-                      style: AppTextStyle.headingSmall.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                child: Obx(() {
+                  final user = AuthController.to.currentUser.value;
+                  final name = user?.name ?? 'User';
+                  final email = user?.email ?? '-';
+                  final roles = user?.roles ?? [];
+                  final roleLabel = roles.isNotEmpty
+                      ? roles.map((r) => _formatRole(r)).join(', ')
+                      : '-';
 
-                    SizedBox(height: 4),
-
-                    Text(
-                      'email',
-                      style: AppTextStyle.bodySmall.copyWith(
-                        color: AppColor.textTertiary,
+                  return Column(
+                    children: [
+                      Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColor.primaryLight,
+                        ),
+                        child: Icon(
+                          Icons.person,
+                          size: 60,
+                          color: AppColor.primary,
+                        ),
                       ),
-                    ),
 
-                    SizedBox(height: 4),
+                      SizedBox(height: 16),
 
-                    Text(
-                      'Role : role',
-                      style: AppTextStyle.bodySmall.copyWith(
-                        color: AppColor.textTertiary,
+                      Text(
+                        name,
+                        style: AppTextStyle.headingSmall.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+
+                      SizedBox(height: 4),
+
+                      Text(
+                        email,
+                        style: AppTextStyle.bodySmall.copyWith(
+                          color: AppColor.textTertiary,
+                        ),
+                      ),
+
+                      SizedBox(height: 4),
+
+                      Text(
+                        'Role : $roleLabel',
+                        style: AppTextStyle.bodySmall.copyWith(
+                          color: AppColor.textTertiary,
+                        ),
+                      ),
+                    ],
+                  );
+                }),
               ),
 
               SizedBox(height: 24),
@@ -136,10 +149,11 @@ class ProfileScreen extends StatelessWidget {
     Get.dialog(
       AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Keluar'),
-        content: const Text('Apakah Anda yakin ingin keluar dari akun?'),
+        title: Text('Keluar'),
+        content: Text('Apakah Anda yakin ingin keluar dari akun?'),
         actions: [
-          TextButton(onPressed: () => Get.back(), child: const Text('Batal')),
+          TextButton(onPressed: () => Get.back(), child: Text('Batal')),
+
           TextButton(
             onPressed: () {
               Get.back();
@@ -209,7 +223,9 @@ class ProfileScreen extends StatelessWidget {
               size: 22,
               color: isLogout ? AppColor.error : AppColor.textSecondary,
             ),
-            const SizedBox(width: 12),
+
+            SizedBox(width: 12),
+
             Expanded(
               child: Text(
                 label,
@@ -218,6 +234,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
+
             Icon(
               Icons.chevron_right,
               size: 22,

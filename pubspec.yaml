@@ -37,6 +37,8 @@ dependencies:
   get: ^4.7.3
   google_fonts: ^8.0.2
   image_picker: ^1.1.2
+  http: ^1.6.0
+  flutter_secure_storage: ^10.3.0
 
 dev_dependencies:
   flutter_test:
