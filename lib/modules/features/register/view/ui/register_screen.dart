@@ -140,6 +140,9 @@ class RegisterScreen extends GetView<RegisterController> {
                                 if (value == null || value.isEmpty) {
                                   return 'NIK tidak boleh kosong';
                                 }
+                                if (value.length != 16) {
+                                  return 'NIK harus terdiri dari 16 digit';
+                                }
                                 return null;
                               },
                             ),
@@ -363,28 +366,67 @@ class RegisterScreen extends GetView<RegisterController> {
 
                             SizedBox(height: 8),
 
-                            Obx(
-                              () => DropdownButtonFormField<String>(
-                                initialValue: controller.selectedRumah.value,
-                                items: controller.rumaOptions
+                            Obx(() {
+                              if (controller.isLoadingHouses.value) {
+                                return Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 14,
+                                    vertical: 16,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColor.inputFill,
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: AppColor.inputBorder,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 16,
+                                        height: 16,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                          color: AppColor.primary,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Text(
+                                        'Memuat daftar rumah...',
+                                        style: AppTextStyle.bodySmall.copyWith(
+                                          color: AppColor.textTertiary,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+
+                              return DropdownButtonFormField<int>(
+                                initialValue: controller.selectedHouseId.value,
+                                items: controller.houses
                                     .map(
-                                      (item) => DropdownMenuItem(
-                                        value: item,
+                                      (house) => DropdownMenuItem(
+                                        value: house.id,
                                         child: Text(
-                                          item,
+                                          house.address,
                                           style: AppTextStyle.bodyLarge
                                               .copyWith(
                                                 color: AppColor.textPrimary,
                                               ),
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
                                     )
                                     .toList(),
                                 onChanged: (value) {
-                                  controller.selectedRumah.value = value;
+                                  controller.selectedHouseId.value = value;
                                 },
                                 decoration: InputDecoration(
-                                  hintText: 'Rumah Ina',
+                                  hintText: controller.houses.isEmpty
+                                      ? 'Tidak ada rumah tersedia'
+                                      : 'Pilih rumah',
                                   hintStyle: AppTextStyle.inputHintSmall,
                                   fillColor: AppColor.inputFill,
                                   contentPadding: const EdgeInsets.symmetric(
@@ -392,8 +434,9 @@ class RegisterScreen extends GetView<RegisterController> {
                                     vertical: 12,
                                   ),
                                 ),
-                              ),
-                            ),
+                                isExpanded: true,
+                              );
+                            }),
 
                             SizedBox(height: 16),
 
@@ -554,21 +597,76 @@ class RegisterScreen extends GetView<RegisterController> {
 
                             SizedBox(height: 24),
 
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 14,
+                            Obx(() {
+                              if (controller.errorMessage.value.isEmpty) {
+                                return const SizedBox.shrink();
+                              }
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 16),
+                                child: Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red.shade50,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(
+                                      color: Colors.red.shade200,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.error_outline,
+                                        color: Colors.red.shade700,
+                                        size: 20,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Expanded(
+                                        child: Text(
+                                          controller.errorMessage.value,
+                                          style: AppTextStyle.bodySmall
+                                              .copyWith(
+                                                color: Colors.red.shade700,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                onPressed: controller.register,
-                                child: Text(
-                                  'Buat Akun',
-                                  style: AppTextStyle.titleMedium.copyWith(
-                                    color: AppColor.textOnPrimary,
-                                    fontWeight: FontWeight.w600,
+                              );
+                            }),
+
+                            SizedBox(
+                              width: double.infinity,
+                              child: Obx(
+                                () => ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14,
+                                    ),
                                   ),
+                                  onPressed: controller.isLoading.value
+                                      ? null
+                                      : controller.register,
+                                  child: controller.isLoading.value
+                                      ? SizedBox(
+                                          height: 20,
+                                          width: 20,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                            color: AppColor.textOnPrimary,
+                                          ),
+                                        )
+                                      : Text(
+                                          'Buat Akun',
+                                          style: AppTextStyle.titleMedium
+                                              .copyWith(
+                                                color: AppColor.textOnPrimary,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                        ),
                                 ),
                               ),
                             ),
