@@ -6,59 +6,73 @@ import 'package:jawara_mobile/modules/features/home/view/components/home_header.
 import 'package:jawara_mobile/modules/features/home/view/components/home_quick_actions_section.dart';
 import 'package:jawara_mobile/shared/styles/app_styles.dart';
 
+import 'package:jawara_mobile/shared/controllers/auth_controller.dart';
+
 class HomeDashboardView extends StatelessWidget {
   const HomeDashboardView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColor.background,
-      child: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              HomeHeader(),
+    final authController = Get.find<AuthController>();
 
-              SizedBox(height: 24),
+    return Obx(() {
+      final user = authController.currentUser.value;
+      final permissions = user?.permissions;
+      final hasDataAccess = permissions != null && (permissions.hasDataAccess || permissions.myFamily);
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  'Ringkasan Analitik',
-                  style: AppTextStyle.titleLarge.copyWith(
-                    color: AppColor.textSecondary,
+      return Container(
+        color: AppColor.background,
+        child: SafeArea(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                HomeHeader(),
+
+                SizedBox(height: 24),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'Ringkasan Analitik',
+                    style: AppTextStyle.titleLarge.copyWith(
+                      color: AppColor.textSecondary,
+                    ),
                   ),
                 ),
-              ),
 
-              SizedBox(height: 16),
+                SizedBox(height: 16),
 
-              HomeAnalyticsSection(),
+                HomeAnalyticsSection(),
 
-              SizedBox(height: 20),
+                SizedBox(height: 20),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  'Menu Cepat',
-                  style: AppTextStyle.titleLarge.copyWith(
-                    color: AppColor.textSecondary,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'Menu Cepat',
+                    style: AppTextStyle.titleLarge.copyWith(
+                      color: AppColor.textSecondary,
+                    ),
                   ),
                 ),
-              ),
 
-              SizedBox(height: 16),
+                SizedBox(height: 16),
 
-              HomeQuickActionsSection(
-                actions: [
-                  HomeQuickAction(
-                    icon: Icons.grid_view,
-                    label: 'Dasbor',
-                    onTap: () => Get.toNamed(Routes.mainRoute),
-                  ),
-                  HomeQuickAction(icon: Icons.people, label: 'Data Warga'),
+                HomeQuickActionsSection(
+                  actions: [
+                    HomeQuickAction(
+                      icon: Icons.grid_view_rounded,
+                      label: 'Dasbor',
+                      onTap: () => Get.toNamed(Routes.mainRoute),
+                    ),
+                    if (hasDataAccess)
+                      HomeQuickAction(
+                        icon: Icons.people,
+                        label: 'Data Warga',
+                        onTap: () => Get.toNamed(Routes.dataRoute),
+                      ),
                   HomeQuickAction(
                     icon: Icons.account_balance_wallet,
                     label: 'Pemasukan',
@@ -109,5 +123,6 @@ class HomeDashboardView extends StatelessWidget {
         ),
       ),
     );
-  }
+  });
+}
 }

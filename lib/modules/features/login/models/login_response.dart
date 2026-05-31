@@ -21,7 +21,10 @@ class LoginResponse extends BaseResponse {
 
     UserModel? user;
     if (json['data'] != null && json['data']['user'] != null) {
-      user = UserModel.fromJson(json['data']['user'] as Map<String, dynamic>);
+      user = UserModel.fromJson(
+        json['data']['user'] as Map<String, dynamic>,
+        permissionsJson: json['data']['permissions'] as Map<String, dynamic>?,
+      );
     }
 
     return LoginResponse(

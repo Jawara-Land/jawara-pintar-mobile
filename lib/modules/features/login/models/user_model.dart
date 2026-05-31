@@ -1,3 +1,5 @@
+import 'package:jawara_mobile/modules/features/data/models/permission_model.dart';
+
 class UserModel {
   final int id;
   final String name;
@@ -5,6 +7,7 @@ class UserModel {
   final String? emailVerifiedAt;
   final String registrationStatus;
   final List<String> roles;
+  final PermissionModel permissions;
 
   UserModel({
     required this.id,
@@ -13,9 +16,11 @@ class UserModel {
     this.emailVerifiedAt,
     required this.registrationStatus,
     required this.roles,
+    required this.permissions,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
+  factory UserModel.fromJson(Map<String, dynamic> json,
+      {Map<String, dynamic>? permissionsJson}) {
     return UserModel(
       id: json['id'] as int,
       name: json['name'] as String,
@@ -25,6 +30,9 @@ class UserModel {
       roles: json['roles'] != null
           ? List<String>.from(json['roles'] as List<dynamic>)
           : [],
+      permissions: permissionsJson != null
+          ? PermissionModel.fromJson(permissionsJson)
+          : PermissionModel(),
     );
   }
 

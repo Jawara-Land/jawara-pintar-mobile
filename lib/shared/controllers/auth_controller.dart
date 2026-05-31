@@ -33,6 +33,7 @@ class AuthController extends GetxController {
       if (result['success'] == true && result['data'] != null) {
         final user = UserModel.fromJson(
           result['data']['user'] as Map<String, dynamic>,
+          permissionsJson: result['data']['permissions'] as Map<String, dynamic>?,
         );
         setUser(user);
         return true;

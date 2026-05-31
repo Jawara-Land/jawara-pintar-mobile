@@ -12,6 +12,10 @@ import 'package:jawara_mobile/modules/features/register/bindings/register_bindin
 import 'package:jawara_mobile/modules/features/register/view/ui/register_screen.dart';
 import 'package:jawara_mobile/modules/features/splash/bindings/splash_binding.dart';
 import 'package:jawara_mobile/modules/features/splash/view/ui/splash_screen.dart';
+import 'package:jawara_mobile/modules/features/data/bindings/data_binding.dart';
+import 'package:jawara_mobile/modules/features/data/view/ui/data_screen.dart';
+import 'package:jawara_mobile/modules/features/data/view/ui/data_detail_screen.dart';
+import 'package:jawara_mobile/modules/features/data/view/ui/data_form_screen.dart';
 
 abstract class Pages {
   static final page = [
@@ -44,6 +48,21 @@ abstract class Pages {
       name: Routes.marketplaceRoute,
       page: () => MarketplaceScreen(),
       binding: MarketplaceBinding(),
+    ),
+    GetPage(
+      name: Routes.dataRoute,
+      page: () => const DataScreen(),
+      binding: DataBinding(),
+    ),
+    GetPage(
+      name: Routes.dataDetailRoute,
+      page: () => const DataDetailScreen(),
+      binding: DataBinding(),
+    ),
+    GetPage(
+      name: Routes.dataFormRoute,
+      page: () => const DataFormScreen(),
+      binding: DataBinding(),
     ),
   ];
 }

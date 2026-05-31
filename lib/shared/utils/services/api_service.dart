@@ -104,6 +104,60 @@ class ApiService {
     return body;
   }
 
+  static Future<Map<String, dynamic>> get(String path) async {
+    final response = await http
+        .get(
+          Uri.parse('$baseUrl$path'),
+          headers: await _headers(withAuth: true),
+        )
+        .timeout(_timeout);
+
+    final body = jsonDecode(response.body) as Map<String, dynamic>;
+    body['_statusCode'] = response.statusCode;
+    return body;
+  }
+
+  static Future<Map<String, dynamic>> post(String path, Map<String, dynamic> data) async {
+    final response = await http
+        .post(
+          Uri.parse('$baseUrl$path'),
+          headers: await _headers(withAuth: true),
+          body: jsonEncode(data),
+        )
+        .timeout(_timeout);
+
+    final body = jsonDecode(response.body) as Map<String, dynamic>;
+    body['_statusCode'] = response.statusCode;
+    return body;
+  }
+
+  static Future<Map<String, dynamic>> put(String path, Map<String, dynamic> data) async {
+    final response = await http
+        .put(
+          Uri.parse('$baseUrl$path'),
+          headers: await _headers(withAuth: true),
+          body: jsonEncode(data),
+        )
+        .timeout(_timeout);
+
+    final body = jsonDecode(response.body) as Map<String, dynamic>;
+    body['_statusCode'] = response.statusCode;
+    return body;
+  }
+
+  static Future<Map<String, dynamic>> delete(String path) async {
+    final response = await http
+        .delete(
+          Uri.parse('$baseUrl$path'),
+          headers: await _headers(withAuth: true),
+        )
+        .timeout(_timeout);
+
+    final body = jsonDecode(response.body) as Map<String, dynamic>;
+    body['_statusCode'] = response.statusCode;
+    return body;
+  }
+
   static Future<bool> isLoggedIn() async {
     final token = await storage.read(key: _tokenKey);
     return token != null;

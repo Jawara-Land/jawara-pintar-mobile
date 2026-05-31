@@ -9,4 +9,7 @@ abstract class Routes {
   static const String aspirationRoute = '/aspiration';
   static const String profileRoute = '/profile';
   static const String marketplaceRoute = '/marketplace';
+  static const String dataRoute = '/data';
+  static const String dataDetailRoute = '/data/detail';
+  static const String dataFormRoute = '/data/form';
 }
