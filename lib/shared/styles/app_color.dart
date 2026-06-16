@@ -13,7 +13,10 @@ class AppColor {
   static const Color background = Color(0xFFF9FAFB);
   static const Color surface = Color(0xFFFFFFFF);
   static const Color surfaceVariant = Color(0xFFF1F0EF);
+  static const Color notificationUnread = Color(0xFF2196F3);
   static const Color backgroundAlt = Color(0xFFE3F2FD);
+  static const Color overlay = Color(0x99000000); // 60% opacity black
+  static const Color transparent = Color(0x00000000);
 
   // Border / Divider
   static const Color border = Color(0xFFE2E8F0);
@@ -36,8 +39,15 @@ class AppColor {
   static const Color errorLight = Color(0xFFFEE2E2);
   static const Color info = Color(0xFF3B82F6);
 
+  // Order Status
+  static const Color statusPending = Color(0xFFF97316);
+  static const Color statusPaid = Color(0xFF3B82F6);
+  static const Color statusProcessed = Color(0xFF8B5CF6);
+  static const Color statusShipped = Color(0xFF6366F1);
+
   // Shadows
   static const Color shadow = Color(0x14000000);
+  static const Color shadowDark = Color(0x36000000);
   static const Color shadowLight = Color(0x0D000000);
 
   // Input Field

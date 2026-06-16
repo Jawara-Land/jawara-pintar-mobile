@@ -1,395 +1,172 @@
 import 'package:flutter/material.dart';
-import 'package:jawara_mobile/shared/styles/app_styles.dart';
+import 'package:get/get.dart';
+import 'package:jawara_mobile/modules/features/marketplace/view/components/category_chip.dart';
+import 'package:jawara_mobile/modules/features/marketplace/view/components/category_shimmer.dart';
+import 'package:jawara_mobile/modules/features/marketplace/view/components/product_card.dart';
+import 'package:jawara_mobile/modules/features/marketplace/view/components/product_shimmer_grid.dart';
+import 'package:jawara_mobile/configs/routes/route.dart';
+import 'package:jawara_mobile/modules/features/marketplace/controllers/marketplace_controller.dart';
+import 'package:jawara_mobile/modules/features/marketplace/sub_features/cart/controllers/cart_controller.dart';
+import 'package:jawara_mobile/modules/features/marketplace/controllers/notification_controller.dart';
+import 'package:jawara_mobile/shared/widgets/app_widgets.dart';
 
-class MarketplaceScreen extends StatefulWidget {
+class MarketplaceScreen extends GetView<MarketplaceController> {
   const MarketplaceScreen({super.key});
 
   @override
-  State<MarketplaceScreen> createState() => _MarketplaceScreenState();
-}
-
-class _MarketplaceScreenState extends State<MarketplaceScreen> {
-  int selectedTabIndex = 0;
-  String searchQuery = '';
-
-  final List<String> tabs = ['Semua', 'Paling Populer', 'Termurah'];
-
-  final List<Product> products = [
-    Product(
-      id: '1',
-      title: 'Sayur Organik Segar',
-      price: 25000,
-      image: Icons.spa,
-      seller: 'Pak Budi',
-      rating: 4.8,
-      sold: 156,
-      category: 'Sayuran',
-    ),
-    Product(
-      id: '2',
-      title: 'Daging Sapi Premium',
-      price: 95000,
-      image: Icons.restaurant,
-      seller: 'Bu Siti',
-      rating: 4.9,
-      sold: 89,
-      category: 'Daging',
-    ),
-    Product(
-      id: '3',
-      title: 'Telur Ayam Kampung',
-      price: 45000,
-      image: Icons.egg,
-      seller: 'Pak Rudi',
-      rating: 4.7,
-      sold: 234,
-      category: 'Telur',
-    ),
-    Product(
-      id: '4',
-      title: 'Madu Murni Asli',
-      price: 55000,
-      image: Icons.water_drop,
-      seller: 'Bu Rina',
-      rating: 4.9,
-      sold: 178,
-      category: 'Produk Olahan',
-    ),
-  ];
-
-  @override
   Widget build(BuildContext context) {
+    final cartController = Get.find<CartController>();
+    final notificationController = Get.put(NotificationController());
+
     return Scaffold(
-      backgroundColor: AppColor.background,
       appBar: AppBar(
-        title: Text(
-          'Pasar Lokal',
-          style: AppTextStyle.headingSmall.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
+        leading: IconButton(
+          icon: Icon(Icons.chevron_left),
+          onPressed: () => Get.back(),
         ),
+        title: Text('Marketplace Warga'),
         actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.shopping_cart_outlined,
-              color: AppColor.textSecondary,
+          Obx(
+            () => BadgeCount(
+              count: cartController.cartItems.length,
+              child: IconButton(
+                icon: Icon(Icons.shopping_cart),
+                onPressed: () => Get.toNamed(Routes.cartRoute),
+              ),
             ),
-            onPressed: () {},
+          ),
+
+          Obx(
+            () => BadgeCount(
+              count: notificationController.unreadCount.value,
+              size: 16,
+              fontSize: 10,
+              child: IconButton(
+                icon: Icon(Icons.notifications),
+                onPressed: () => Get.toNamed(Routes.notificationListRoute),
+              ),
+            ),
           ),
         ],
       ),
-      body: SingleChildScrollView(
+
+      body: RefreshIndicator(
+        onRefresh: controller.onRefresh,
         child: Column(
           children: [
+            SearchField(
+              hintText: 'Cari produk...',
+              onChanged: controller.onSearch,
+            ),
+
             Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppColor.surface,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColor.shadowLight,
-                            blurRadius: 4,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: TextField(
-                        onChanged: (value) {
-                          setState(() {
-                            searchQuery = value;
-                          });
-                        },
-                        decoration: InputDecoration(
-                          hintText: 'Cari produk...',
-                          hintStyle: AppTextStyle.bodyMedium.copyWith(
-                            color: AppColor.textTertiary,
-                          ),
-                          border: InputBorder.none,
-                          prefixIcon: const Icon(
-                            Icons.search,
-                            color: AppColor.textTertiary,
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 12,
-                          ),
-                        ),
-                      ),
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: QuickActionRow(
+                items: [
+                  QuickActionItem(
+                    icon: Icons.list_alt,
+                    label: 'Pesanan',
+                    onTap: () => Get.toNamed(Routes.orderListRoute),
+                  ),
+                  QuickActionItem(
+                    icon: Icons.history,
+                    label: 'Riwayat',
+                    onTap: () => Get.toNamed(
+                      Routes.orderListRoute,
+                      arguments: {'initialTab': 5},
                     ),
                   ),
-
-                  SizedBox(width: 12),
-
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: AppColor.surface,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColor.shadowLight,
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(Icons.tune, color: AppColor.textTertiary),
+                  QuickActionItem(
+                    icon: Icons.store,
+                    label: 'Toko',
+                    onTap: () => Get.toNamed(Routes.myStoreRoute),
+                  ),
+                  QuickActionItem(
+                    icon: Icons.location_on_outlined,
+                    label: 'Alamat',
+                    onTap: () => Get.toNamed(Routes.addressListRoute),
                   ),
                 ],
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColor.primary,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.primary.withValues(alpha: 0.3),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Mulai Berjualan',
-                          style: AppTextStyle.titleLarge.copyWith(
-                            color: AppColor.textOnPrimary,
-                          ),
-                        ),
+            Divider(),
 
-                        SizedBox(height: 4),
+            SizedBox(
+              height: 50,
+              child: Obx(() {
+                if (controller.isLoadingCategories.value) {
+                  return CategoryShimmer();
+                }
+                final selectedId = controller.selectedCategoryId.value;
 
-                        Text(
-                          'Jual produk Anda sekarang',
-                          style: AppTextStyle.labelSmall.copyWith(
-                            color: AppColor.textOnPrimary.withValues(
-                              alpha: 0.7,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  itemCount: controller.categories.length + 1,
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return CategoryChip(
+                        label: 'Semua',
+                        iconName: 'home',
+                        isSelected: selectedId == null,
+                        onSelected: () => controller.onCategorySelected(null),
+                      );
+                    }
 
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColor.onPrimary.withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        'Mulai',
-                        style: AppTextStyle.bodyMedium.copyWith(
-                          color: AppColor.textOnPrimary,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                    final category = controller.categories[index - 1];
+
+                    return CategoryChip(
+                      label: category.name,
+                      iconName: category.icon,
+                      isSelected: selectedId == category.id,
+                      onSelected: () =>
+                          controller.onCategorySelected(category.id),
+                    );
+                  },
+                );
+              }),
             ),
 
-            SizedBox(height: 16),
+            Expanded(
+              child: Obx(() {
+                if (controller.isLoadingProducts.value &&
+                    controller.products.isEmpty) {
+                  return ProductShimmerGrid();
+                }
 
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: List.generate(
-                  tabs.length,
-                  (index) => Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedTabIndex = index;
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: selectedTabIndex == index
-                              ? AppColor.primary
-                              : AppColor.surface,
-                          borderRadius: BorderRadius.circular(20),
-                          border: selectedTabIndex != index
-                              ? Border.all(color: AppColor.inputBorder)
-                              : null,
-                        ),
-                        child: Text(
-                          tabs[index],
-                          style: AppTextStyle.labelSmall.copyWith(
-                            color: selectedTabIndex == index
-                                ? AppColor.textOnPrimary
-                                : AppColor.textSecondary,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            SizedBox(height: 16),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 12,
-                  childAspectRatio: 0.75,
-                ),
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  return _buildProductCard(products[index]);
-                },
-              ),
-            ),
-
-            SizedBox(height: 24),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProductCard(Product product) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColor.surface,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: AppColor.shadow,
-              blurRadius: 6,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Product Image
-            Container(
-              width: double.infinity,
-              height: 120,
-              decoration: const BoxDecoration(
-                color: AppColor.primarySurface,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
-                ),
-              ),
-              child: Icon(product.image, size: 50, color: AppColor.primary),
-            ),
-
-            // Product Info
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.title,
-                    style: AppTextStyle.bodySmall.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppColor.textSecondary,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    'Rp ${product.price.toString().replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => '.')}',
-                    style: AppTextStyle.bodyMedium.copyWith(
-                      fontWeight: FontWeight.w700,
-                      color: AppColor.primary,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
+                if (controller.products.isEmpty) {
+                  return ListView(
                     children: [
-                      const Icon(Icons.star, size: 14, color: Colors.amber),
-                      const SizedBox(width: 4),
-                      Text(
-                        '${product.rating}',
-                        style: AppTextStyle.labelSmall.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: AppColor.textSecondary,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        '(${product.sold})',
-                        style: AppTextStyle.caption.copyWith(
-                          color: AppColor.textTertiary,
-                        ),
+                      AppEmptyState(
+                        icon: Icons.shopping_bag_outlined,
+                        message: 'Tidak ada produk.',
                       ),
                     ],
+                  );
+                }
+
+                return GridView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.all(8),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.7,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
                   ),
-                  const SizedBox(height: 6),
-                  Text(
-                    'Penjual: ${product.seller}',
-                    style: AppTextStyle.caption.copyWith(
-                      color: AppColor.textTertiary,
-                    ),
-                  ),
-                ],
-              ),
+                  itemCount: controller.products.length,
+                  itemBuilder: (context, index) {
+                    final product = controller.products[index];
+
+                    return ProductCard(product: product);
+                  },
+                );
+              }),
             ),
           ],
         ),
       ),
     );
   }
-}
-
-class Product {
-  final String id;
-  final String title;
-  final int price;
-  final IconData image;
-  final String seller;
-  final double rating;
-  final int sold;
-  final String category;
-
-  Product({
-    required this.id,
-    required this.title,
-    required this.price,
-    required this.image,
-    required this.seller,
-    required this.rating,
-    required this.sold,
-    required this.category,
-  });
 }

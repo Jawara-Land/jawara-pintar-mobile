@@ -3,9 +3,16 @@ import 'package:get/get.dart';
 import 'package:jawara_mobile/modules/features/profile/controllers/profile_controller.dart';
 import 'package:jawara_mobile/shared/controllers/auth_controller.dart';
 import 'package:jawara_mobile/shared/styles/app_styles.dart';
+import 'package:jawara_mobile/configs/routes/route.dart';
 
 class ProfileScreen extends GetView<ProfileController> {
   const ProfileScreen({super.key});
+
+  // Roles that cannot access marketplace at all
+  static const _blockedRoles = ['treasurer', 'secretary', 'neighborhood_head'];
+
+  // Roles that see admin dashboard instead of buyer menus
+  static const _adminRoles = ['admin', 'rw'];
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +129,73 @@ class ProfileScreen extends GetView<ProfileController> {
 
               SizedBox(height: 16),
 
+              // Marketplace section
+              Obx(() {
+                final user = AuthController.to.currentUser.value;
+                final roles = user?.roles ?? [];
+
+                final hasBlockedRole = roles.any(
+                  (r) => _blockedRoles.contains(r),
+                );
+                if (hasBlockedRole) return const SizedBox.shrink();
+
+                // Admin/RW: show only management menus
+                final hasAdminRole = roles.any((r) => _adminRoles.contains(r));
+
+                if (hasAdminRole) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: _buildSection(
+                      title: 'Marketplace (Admin)',
+                      items: [
+                        _buildMenuItem(
+                          icon: Icons.category,
+                          label: 'Kelola Kategori',
+                          onTap: () {
+                            Get.snackbar(
+                              'Info',
+                              'Kelola Kategori - fitur admin',
+                            );
+                          },
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.settings,
+                          label: 'Pengaturan Marketplace',
+                          onTap: () {
+                            Get.snackbar(
+                              'Info',
+                              'Pengaturan Marketplace - fitur admin',
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                // Regular users (resident, community_head): show buyer menus
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildSection(
+                    title: 'Marketplace',
+                    items: [
+                      _buildMenuItem(
+                        icon: Icons.store,
+                        label: 'Toko Saya',
+                        onTap: () => Get.toNamed(Routes.myStoreRoute),
+                      ),
+                      _buildMenuItem(
+                        icon: Icons.receipt_long,
+                        label: 'Pesanan Saya (Pembeli)',
+                        onTap: () => Get.toNamed(Routes.orderListRoute),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+
+              SizedBox(height: 16),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: _buildSection(
@@ -175,6 +249,14 @@ class ProfileScreen extends GetView<ProfileController> {
         return 'Ketua RT/RW';
       case 'admin':
         return 'Admin';
+      case 'treasurer':
+        return 'Bendahara';
+      case 'secretary':
+        return 'Sekretaris';
+      case 'neighborhood_head':
+        return 'Ketua Lingkungan';
+      case 'rw':
+        return 'RW';
       default:
         return role;
     }

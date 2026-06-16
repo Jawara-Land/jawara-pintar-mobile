@@ -8,6 +8,8 @@ import 'package:jawara_mobile/modules/features/register/constants/register_api_c
 
 class ApiService {
   static const String baseUrl = 'http://10.0.2.2:8000';
+  // static const String baseUrl = 'https://apijawara.anabell.qzz.io/';
+  // static const String baseUrl = 'http://192.168.0.100:8000';
 
   static const storage = FlutterSecureStorage();
   static const String _tokenKey = 'auth_token';
@@ -117,7 +119,10 @@ class ApiService {
     return body;
   }
 
-  static Future<Map<String, dynamic>> post(String path, Map<String, dynamic> data) async {
+  static Future<Map<String, dynamic>> post(
+    String path,
+    Map<String, dynamic> data,
+  ) async {
     final response = await http
         .post(
           Uri.parse('$baseUrl$path'),
@@ -131,7 +136,10 @@ class ApiService {
     return body;
   }
 
-  static Future<Map<String, dynamic>> put(String path, Map<String, dynamic> data) async {
+  static Future<Map<String, dynamic>> put(
+    String path,
+    Map<String, dynamic> data,
+  ) async {
     final response = await http
         .put(
           Uri.parse('$baseUrl$path'),
@@ -212,18 +220,52 @@ class ApiService {
     request.fields['temp_occupancy_status'] = tempOccupancyStatus;
 
     request.fields['temp_house_id'] = tempHouseId?.toString() ?? '';
-    request.fields['temp_address'] = (tempAddress != null && tempAddress.isNotEmpty) ? tempAddress : '';
+    request.fields['temp_address'] =
+        (tempAddress != null && tempAddress.isNotEmpty) ? tempAddress : '';
 
     request.files.add(
-      await http.MultipartFile.fromPath(
-        'identity_photo',
-        identityPhoto.path,
-      ),
-    );  
+      await http.MultipartFile.fromPath('identity_photo', identityPhoto.path),
+    );
 
     final streamedResponse = await request.send().timeout(_timeout);
     final responseBody = await streamedResponse.stream.bytesToString();
     final body = jsonDecode(responseBody) as Map<String, dynamic>;
+    body['_statusCode'] = streamedResponse.statusCode;
+    return body;
+  }
+
+  static Future<Map<String, dynamic>> postMultipart(
+    String path, {
+    required Map<String, String> fields,
+    required Map<String, File> files,
+  }) async {
+    final uri = Uri.parse('$baseUrl$path');
+    final request = http.MultipartRequest('POST', uri);
+
+    final token = await storage.read(key: _tokenKey);
+    request.headers['Accept'] = 'application/json';
+    if (token != null) {
+      request.headers['Authorization'] = 'Bearer $token';
+    }
+
+    request.fields.addAll(fields);
+
+    for (var entry in files.entries) {
+      request.files.add(
+        await http.MultipartFile.fromPath(entry.key, entry.value.path),
+      );
+    }
+
+    final streamedResponse = await request.send().timeout(_timeout);
+    final responseBody = await streamedResponse.stream.bytesToString();
+
+    Map<String, dynamic> body;
+    try {
+      body = jsonDecode(responseBody) as Map<String, dynamic>;
+    } catch (e) {
+      body = {'message': responseBody};
+    }
+
     body['_statusCode'] = streamedResponse.statusCode;
     return body;
   }

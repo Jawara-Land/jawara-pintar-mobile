@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1080654449163",
+    "project_id": "jawara-6ded8",
+    "storage_bucket": "jawara-6ded8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080654449163:android:f4564bae2587e20c8e550e",
+        "android_client_info": {
+          "package_name": "anabellatus.id.jawara_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYhstLsxK_1378cHZtQBUPINy_G1ZQTJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
