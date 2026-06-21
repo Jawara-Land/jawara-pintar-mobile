@@ -79,7 +79,11 @@ class HomeDashboardView extends StatelessWidget {
                       label: 'Pemasukan',
                       onTap: () => Get.toNamed(Routes.incomeRoute),
                     ),
-                    QuickActionItem(icon: Icons.payments, label: 'Pengeluaran'),
+                    QuickActionItem(
+                      icon: Icons.payments,
+                      label: 'Pengeluaran',
+                      onTap: () => Get.toNamed(Routes.expenseRoute),
+                    ),
                     QuickActionItem(icon: Icons.description, label: 'Laporan'),
                     QuickActionItem(
                       icon: Icons.calendar_month,

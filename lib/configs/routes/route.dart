@@ -36,4 +36,11 @@ abstract class Routes {
   static const String addressListRoute = '$marketplaceRoute/addresses';
   static const String addressFormRoute = '$marketplaceRoute/addresses/form';
   static const String notificationListRoute = '$marketplaceRoute/notifications';
+
+  // Expense
+  static const String residentBillRoute = '/resident-bill';
+
+  static const String expenseRoute = '/expense';
+  static const String expenseDetailRoute = '$expenseRoute/detail';
+  static const String expenseCreateRoute = '$expenseRoute/create';
 }

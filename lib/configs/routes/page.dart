@@ -38,6 +38,10 @@ import 'package:jawara_mobile/modules/features/marketplace/sub_features/orders/v
 import 'package:jawara_mobile/modules/features/marketplace/sub_features/address/view/ui/address_list_screen.dart';
 import 'package:jawara_mobile/modules/features/marketplace/sub_features/address/view/components/address_form_screen.dart';
 import 'package:jawara_mobile/modules/features/marketplace/view/ui/notification_list_screen.dart';
+import 'package:jawara_mobile/modules/features/expense/bindings/expense_binding.dart';
+import 'package:jawara_mobile/modules/features/expense/views/ui/expense_screen.dart';
+import 'package:jawara_mobile/modules/features/expense/views/ui/expense_detail_screen.dart';
+import 'package:jawara_mobile/modules/features/expense/views/ui/expense_create_screen.dart';
 
 abstract class Pages {
   static final page = [
@@ -185,6 +189,28 @@ abstract class Pages {
       name: Routes.profileRoute,
       page: () => const ProfileScreen(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: Routes.residentBillRoute,
+      page: () => const ResidentBillDetailScreen(),
+      binding: IncomeBinding(),
+    ),
+    GetPage(
+      name: Routes.expenseRoute,
+      page: () => const ExpenseScreen(),
+      binding: ExpenseBinding(),
+    ),
+    GetPage(
+      name: '${Routes.expenseDetailRoute}/:id',
+      page: () => ExpenseDetailScreen(
+        id: int.parse(Get.parameters['id']!),
+      ),
+      binding: ExpenseBinding(),
+    ),
+    GetPage(
+      name: Routes.expenseCreateRoute,
+      page: () => ExpenseCreateScreen(),
+      binding: ExpenseBinding(),
     ),
   ];
 }
