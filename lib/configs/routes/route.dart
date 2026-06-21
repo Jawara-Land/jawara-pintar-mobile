@@ -12,6 +12,13 @@ abstract class Routes {
   static const String dataDetailRoute = '$dataRoute/detail';
   static const String dataFormRoute = '$dataRoute/form';
 
+  // Income & Billing
+  static const String incomeRoute = '/income';
+  static const String incomeDetailRoute = '$incomeRoute/detail';
+  static const String incomeAddOtherRoute = '$incomeRoute/add-other';
+  static const String incomeAssignRoute = '$incomeRoute/assign';
+  static const String incomeManageCategoriesRoute = '$incomeRoute/manage-categories';
+
   // Marketplace
   static const String marketplaceRoute = '/marketplace';
   static const String productDetailRoute = '$marketplaceRoute/product/detail';

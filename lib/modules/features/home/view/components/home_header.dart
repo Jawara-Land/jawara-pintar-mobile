@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jawara_mobile/shared/controllers/auth_controller.dart';
 import 'package:jawara_mobile/shared/styles/app_styles.dart';
+import 'package:jawara_mobile/shared/widgets/app_widgets.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -40,46 +41,19 @@ class HomeHeader extends StatelessWidget {
 
           Spacer(),
 
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.notifications_none,
-                  color: AppColor.textTertiary,
-                  size: 26,
-                ),
+          BadgeCount(
+            count: 1,
+            size: 16,
+            fontSize: 10,
+            borderRadius: 99,
+            child: IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.notifications_none,
+                color: AppColor.textTertiary,
+                size: 26,
               ),
-              Positioned(
-                right: 8,
-                top: 8,
-                child: Container(
-                  padding: const EdgeInsets.all(2),
-                  decoration: const BoxDecoration(
-                    color: AppColor.surface,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Container(
-                    width: 14,
-                    height: 14,
-                    decoration: BoxDecoration(
-                      color: AppColor.primary,
-                      borderRadius: BorderRadius.circular(99),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      '1',
-                      style: AppTextStyle.caption.copyWith(
-                        fontSize: 9,
-                        color: AppColor.textOnPrimary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ],
       ),

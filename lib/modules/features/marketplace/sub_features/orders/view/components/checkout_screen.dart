@@ -261,7 +261,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 return Column(
                   children: [
                     DropdownButtonFormField<AddressModel>(
-                      value: selectedAddress,
+                      initialValue: selectedAddress,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                       ),

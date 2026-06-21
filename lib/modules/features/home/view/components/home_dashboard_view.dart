@@ -3,10 +3,9 @@ import 'package:get/get.dart';
 import 'package:jawara_mobile/configs/routes/route.dart';
 import 'package:jawara_mobile/modules/features/home/view/components/home_analytics_section.dart';
 import 'package:jawara_mobile/modules/features/home/view/components/home_header.dart';
-import 'package:jawara_mobile/modules/features/home/view/components/home_quick_actions_section.dart';
 import 'package:jawara_mobile/shared/styles/app_styles.dart';
-
 import 'package:jawara_mobile/shared/controllers/auth_controller.dart';
+import 'package:jawara_mobile/shared/widgets/app_widgets.dart';
 
 class HomeDashboardView extends StatelessWidget {
   const HomeDashboardView({super.key});
@@ -18,7 +17,9 @@ class HomeDashboardView extends StatelessWidget {
     return Obx(() {
       final user = authController.currentUser.value;
       final permissions = user?.permissions;
-      final hasDataAccess = permissions != null && (permissions.hasDataAccess || permissions.myFamily);
+      final hasDataAccess =
+          permissions != null &&
+          (permissions.hasDataAccess || permissions.myFamily);
 
       return Container(
         color: AppColor.background,
@@ -60,69 +61,79 @@ class HomeDashboardView extends StatelessWidget {
 
                 SizedBox(height: 16),
 
-                HomeQuickActionsSection(
-                  actions: [
-                    HomeQuickAction(
+                QuickActionGrid(
+                  items: [
+                    QuickActionItem(
                       icon: Icons.grid_view_rounded,
                       label: 'Dasbor',
                       onTap: () => Get.toNamed(Routes.mainRoute),
                     ),
                     if (hasDataAccess)
-                      HomeQuickAction(
+                      QuickActionItem(
                         icon: Icons.people,
                         label: 'Data Warga',
                         onTap: () => Get.toNamed(Routes.dataRoute),
                       ),
-                  HomeQuickAction(
-                    icon: Icons.account_balance_wallet,
-                    label: 'Pemasukan',
-                  ),
-                  HomeQuickAction(icon: Icons.payments, label: 'Pengeluaran'),
-                  HomeQuickAction(icon: Icons.description, label: 'Laporan'),
-                  HomeQuickAction(
-                    icon: Icons.calendar_month,
-                    label: 'Kegiatan',
-                    onTap: () {},
-                  ),
-                  HomeQuickAction(
-                    icon: Icons.campaign,
-                    label: 'Pengumuman',
-                    onTap: () {},
-                  ),
-                  HomeQuickAction(
-                    icon: Icons.store,
-                    label: 'Pasar Lokal',
-                    onTap: () {
-                      Get.toNamed(Routes.marketplaceRoute);
-                    },
-                  ),
-                  HomeQuickAction(
-                    icon: Icons.message,
-                    label: 'Pesan Warga',
-                    onTap: () {},
-                  ),
-                  HomeQuickAction(
-                    icon: Icons.manage_accounts,
-                    label: 'Kelola Pengguna',
-                    onTap: () {},
-                  ),
-                  HomeQuickAction(
-                    icon: Icons.history,
-                    label: 'Riwayat Aktivitas',
-                    onTap: () {},
-                  ),
-                  HomeQuickAction(
-                    icon: Icons.more_horiz,
-                    label: 'Lainnya',
-                    onTap: () {},
-                  ),
-                ],
-              ),
-            ],
+                    QuickActionItem(
+                      icon: Icons.account_balance_wallet,
+                      label: 'Pemasukan',
+                      onTap: () => Get.toNamed(Routes.incomeRoute),
+                    ),
+                    QuickActionItem(icon: Icons.payments, label: 'Pengeluaran'),
+                    QuickActionItem(icon: Icons.description, label: 'Laporan'),
+                    QuickActionItem(
+                      icon: Icons.calendar_month,
+                      label: 'Kegiatan',
+                      onTap: () {},
+                    ),
+                    QuickActionItem(
+                      icon: Icons.campaign,
+                      label: 'Pengumuman',
+                      onTap: () {},
+                    ),
+
+                    if (!user!.roles.any(
+                      (r) => [
+                        'treasurer',
+                        'secretary',
+                        'neighborhood_head',
+                      ].contains(r),
+                    ))
+                      QuickActionItem(
+                        icon: Icons.store,
+                        label: 'Pasar Lokal',
+                        onTap: () {
+                          Get.toNamed(Routes.marketplaceRoute);
+                        },
+                      ),
+
+                    QuickActionItem(
+                      icon: Icons.message,
+                      label: 'Pesan Warga',
+                      onTap: () {},
+                    ),
+                    QuickActionItem(
+                      icon: Icons.manage_accounts,
+                      label: 'Kelola Pengguna',
+                      onTap: () {},
+                    ),
+                    QuickActionItem(
+                      icon: Icons.history,
+                      label: 'Riwayat Aktivitas',
+                      onTap: () {},
+                    ),
+                    QuickActionItem(
+                      icon: Icons.more_horiz,
+                      label: 'Lainnya',
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  });
-}
+      );
+    });
+  }
 }

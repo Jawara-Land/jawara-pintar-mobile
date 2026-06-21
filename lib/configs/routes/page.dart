@@ -18,7 +18,12 @@ import 'package:jawara_mobile/modules/features/data/bindings/data_binding.dart';
 import 'package:jawara_mobile/modules/features/data/view/ui/data_screen.dart';
 import 'package:jawara_mobile/modules/features/data/view/ui/data_detail_screen.dart';
 import 'package:jawara_mobile/modules/features/data/view/ui/data_form_screen.dart';
-
+import 'package:jawara_mobile/modules/features/income/bindings/income_binding.dart';
+import 'package:jawara_mobile/modules/features/income/view/ui/income_screen.dart';
+import 'package:jawara_mobile/modules/features/income/sub_features/resident_bill/view/ui/resident_bill_detail_screen.dart';
+import 'package:jawara_mobile/modules/features/income/sub_features/non_contribution/view/ui/add_income_non_contribution_screen.dart';
+import 'package:jawara_mobile/modules/features/income/sub_features/treasurer_bill/view/ui/assign_bill_form_screen.dart';
+import 'package:jawara_mobile/modules/features/income/sub_features/treasurer_bill/view/ui/manage_contribution_categories_screen.dart';
 import 'package:jawara_mobile/modules/features/marketplace/view/ui/product_detail_screen.dart';
 import 'package:jawara_mobile/modules/features/marketplace/sub_features/cart/view/ui/cart_screen.dart';
 import 'package:jawara_mobile/modules/features/marketplace/sub_features/orders/view/components/checkout_screen.dart';
@@ -80,6 +85,31 @@ abstract class Pages {
       name: Routes.dataFormRoute,
       page: () => const DataFormScreen(),
       binding: DataBinding(),
+    ),
+    GetPage(
+      name: Routes.incomeRoute,
+      page: () => IncomeScreen(),
+      binding: IncomeBinding(),
+    ),
+    GetPage(
+      name: Routes.incomeDetailRoute,
+      page: () => const ResidentBillDetailScreen(),
+      binding: IncomeBinding(),
+    ),
+    GetPage(
+      name: Routes.incomeAddOtherRoute,
+      page: () => const AddIncomeNonContributionScreen(),
+      binding: IncomeBinding(),
+    ),
+    GetPage(
+      name: Routes.incomeAssignRoute,
+      page: () => const AssignBillFormScreen(),
+      binding: IncomeBinding(),
+    ),
+    GetPage(
+      name: Routes.incomeManageCategoriesRoute,
+      page: () => const ManageContributionCategoriesScreen(),
+      binding: IncomeBinding(),
     ),
     GetPage(
       name: Routes.productDetailRoute,
