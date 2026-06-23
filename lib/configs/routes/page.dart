@@ -42,6 +42,9 @@ import 'package:jawara_mobile/modules/features/expense/bindings/expense_binding.
 import 'package:jawara_mobile/modules/features/expense/views/ui/expense_screen.dart';
 import 'package:jawara_mobile/modules/features/expense/views/ui/expense_detail_screen.dart';
 import 'package:jawara_mobile/modules/features/expense/views/ui/expense_create_screen.dart';
+import 'package:jawara_mobile/modules/features/user_management/bindings/user_management_binding.dart';
+import 'package:jawara_mobile/modules/features/user_management/views/ui/user_management_screen.dart';
+import 'package:jawara_mobile/modules/features/user_management/views/ui/user_management_form_screen.dart';
 
 abstract class Pages {
   static final page = [
@@ -202,15 +205,23 @@ abstract class Pages {
     ),
     GetPage(
       name: '${Routes.expenseDetailRoute}/:id',
-      page: () => ExpenseDetailScreen(
-        id: int.parse(Get.parameters['id']!),
-      ),
+      page: () => ExpenseDetailScreen(id: int.parse(Get.parameters['id']!)),
       binding: ExpenseBinding(),
     ),
     GetPage(
       name: Routes.expenseCreateRoute,
       page: () => ExpenseCreateScreen(),
       binding: ExpenseBinding(),
+    ),
+    GetPage(
+      name: Routes.userManagementRoute,
+      page: () => const UserManagementScreen(),
+      binding: UserManagementBinding(),
+    ),
+    GetPage(
+      name: Routes.userManagementFormRoute,
+      page: () => const UserManagementFormScreen(),
+      binding: UserManagementFormBinding(),
     ),
   ];
 }

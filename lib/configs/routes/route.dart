@@ -43,4 +43,8 @@ abstract class Routes {
   static const String expenseRoute = '/expense';
   static const String expenseDetailRoute = '$expenseRoute/detail';
   static const String expenseCreateRoute = '$expenseRoute/create';
+
+  // User Management
+  static const String userManagementRoute = '/user-management';
+  static const String userManagementFormRoute = '$userManagementRoute/form';
 }

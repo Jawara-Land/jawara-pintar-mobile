@@ -118,8 +118,10 @@ class HomeDashboardView extends StatelessWidget {
                     ),
                     QuickActionItem(
                       icon: Icons.manage_accounts,
-                      label: 'Kelola Pengguna',
-                      onTap: () {},
+                      label: 'Pengguna & Pengajuan Warga',
+                      onTap: () {
+                        Get.toNamed(Routes.userManagementRoute);
+                      },
                     ),
                     QuickActionItem(
                       icon: Icons.history,
