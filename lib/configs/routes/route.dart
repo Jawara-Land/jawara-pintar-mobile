@@ -17,7 +17,8 @@ abstract class Routes {
   static const String incomeDetailRoute = '$incomeRoute/detail';
   static const String incomeAddOtherRoute = '$incomeRoute/add-other';
   static const String incomeAssignRoute = '$incomeRoute/assign';
-  static const String incomeManageCategoriesRoute = '$incomeRoute/manage-categories';
+  static const String incomeManageCategoriesRoute =
+      '$incomeRoute/manage-categories';
 
   // Marketplace
   static const String marketplaceRoute = '/marketplace';
@@ -28,11 +29,15 @@ abstract class Routes {
   static const String orderDetailRoute = '$marketplaceRoute/order/detail';
   static const String myStoreRoute = '$marketplaceRoute/my-store';
   static const String createStoreRoute = '$marketplaceRoute/create-store';
-  static const String productManagementRoute = '$marketplaceRoute/store/products';
-  static const String productFormRoute = '$marketplaceRoute/store/products/form';
+  static const String productManagementRoute =
+      '$marketplaceRoute/store/products';
+  static const String productFormRoute =
+      '$marketplaceRoute/store/products/form';
   static const String sellerOrderListRoute = '$marketplaceRoute/store/orders';
-  static const String sellerOrderDetailRoute = '$marketplaceRoute/store/orders/detail';
-  static const String midtransPaymentRoute = '$marketplaceRoute/payment/midtrans';
+  static const String sellerOrderDetailRoute =
+      '$marketplaceRoute/store/orders/detail';
+  static const String midtransPaymentRoute =
+      '$marketplaceRoute/payment/midtrans';
   static const String addressListRoute = '$marketplaceRoute/addresses';
   static const String addressFormRoute = '$marketplaceRoute/addresses/form';
   static const String notificationListRoute = '$marketplaceRoute/notifications';
@@ -47,4 +52,12 @@ abstract class Routes {
   // User Management
   static const String userManagementRoute = '/user-management';
   static const String userManagementFormRoute = '$userManagementRoute/form';
+
+  // Log History
+  static const String logHistoryRoute = '/log-history';
+
+  // Transfer Channel
+  static const String transferChannelRoute = '/transfer-channel';
+  static const String transferChannelCreateRoute = '$transferChannelRoute/create';
+  static const String transferChannelEditRoute = '$transferChannelRoute/edit';
 }

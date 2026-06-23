@@ -45,6 +45,11 @@ import 'package:jawara_mobile/modules/features/expense/views/ui/expense_create_s
 import 'package:jawara_mobile/modules/features/user_management/bindings/user_management_binding.dart';
 import 'package:jawara_mobile/modules/features/user_management/views/ui/user_management_screen.dart';
 import 'package:jawara_mobile/modules/features/user_management/views/ui/user_management_form_screen.dart';
+import 'package:jawara_mobile/modules/features/log_history/bindings/log_history_binding.dart';
+import 'package:jawara_mobile/modules/features/log_history/views/ui/log_history_screen.dart';
+import 'package:jawara_mobile/modules/features/transfer_channel/bindings/transfer_channel_binding.dart';
+import 'package:jawara_mobile/modules/features/transfer_channel/views/ui/transfer_channel_screen.dart';
+import 'package:jawara_mobile/modules/features/transfer_channel/views/ui/transfer_channel_form_screen.dart';
 
 abstract class Pages {
   static final page = [
@@ -222,6 +227,26 @@ abstract class Pages {
       name: Routes.userManagementFormRoute,
       page: () => const UserManagementFormScreen(),
       binding: UserManagementFormBinding(),
+    ),
+    GetPage(
+      name: Routes.logHistoryRoute,
+      page: () => const LogHistoryScreen(),
+      binding: LogHistoryBinding(),
+    ),
+    GetPage(
+      name: Routes.transferChannelRoute,
+      page: () => const TransferChannelScreen(),
+      binding: TransferChannelBinding(),
+    ),
+    GetPage(
+      name: Routes.transferChannelCreateRoute,
+      page: () => const TransferChannelFormScreen(),
+      binding: TransferChannelFormBinding(),
+    ),
+    GetPage(
+      name: Routes.transferChannelEditRoute,
+      page: () => const TransferChannelFormScreen(),
+      binding: TransferChannelFormBinding(),
     ),
   ];
 }

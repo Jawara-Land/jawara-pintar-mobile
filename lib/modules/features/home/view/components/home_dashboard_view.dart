@@ -126,7 +126,16 @@ class HomeDashboardView extends StatelessWidget {
                     QuickActionItem(
                       icon: Icons.history,
                       label: 'Riwayat Aktivitas',
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(Routes.logHistoryRoute);
+                      },
+                    ),
+                    QuickActionItem(
+                      icon: Icons.account_balance,
+                      label: 'Channel Transfer',
+                      onTap: () {
+                        Get.toNamed(Routes.transferChannelRoute);
+                      },
                     ),
                     QuickActionItem(
                       icon: Icons.more_horiz,
