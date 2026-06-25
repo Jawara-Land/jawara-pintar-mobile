@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:jawara_mobile/shared/styles/app_styles.dart';
+import 'package:jawara_mobile/shared/controllers/auth_controller.dart';
+import 'package:jawara_mobile/configs/routes/route.dart';
+import '../../controllers/announcement_controller.dart';
 
-class AnnouncementScreen extends StatelessWidget {
+class AnnouncementScreen extends GetView<AnnouncementController> {
   const AnnouncementScreen({super.key});
 
   @override
@@ -22,31 +26,46 @@ class AnnouncementScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        children: [
-          _buildAnnouncementCard(
-            date: '12 Oktober 2026',
-            title: 'Bersih Desa',
-            category: 'Kebersihan & Keamanan',
-            organizer: 'Pak Budi',
-          ),
-          const SizedBox(height: 12),
-          _buildAnnouncementCard(
-            date: '29 November 2026',
-            title: 'Tahil Akbar',
-            category: 'Keagamaan',
-            organizer: 'Ormas Masjid',
-          ),
-          const SizedBox(height: 12),
-          _buildAnnouncementCard(
-            date: '10 Desember 2026',
-            title: 'Musyawarah',
-            category: 'Komunitas & Sosial',
-            organizer: 'Pak RW',
-          ),
-        ],
-      ),
+      floatingActionButton: Obx(() {
+        final user = AuthController.to.currentUser.value;
+        final canCreate =
+            user?.roles.any((r) => ['admin', 'community_head'].contains(r)) ??
+            false;
+        return canCreate
+            ? FloatingActionButton(
+                backgroundColor: AppColor.primary,
+                child: const Icon(Icons.add, color: AppColor.textOnPrimary),
+                onPressed: () => Get.toNamed(Routes.announcementFormRoute),
+              )
+            : const SizedBox.shrink();
+      }),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (controller.errorMessage.value.isNotEmpty) {
+          return Center(child: Text(controller.errorMessage.value));
+        }
+
+        if (controller.announcements.isEmpty) {
+          return const Center(child: Text('Tidak ada pengumuman tersedia.'));
+        }
+
+        return ListView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          itemCount: controller.announcements.length,
+          itemBuilder: (context, index) {
+            final announcement = controller.announcements[index];
+            return _buildAnnouncementCard(
+              date: announcement.published,
+              title: announcement.title,
+              category: 'Pengumuman',
+              organizer: announcement.creator,
+            );
+          },
+        );
+      }),
     );
   }
 
@@ -57,6 +76,7 @@ class AnnouncementScreen extends StatelessWidget {
     required String organizer,
   }) {
     return Container(
+      margin: const EdgeInsets.only(top: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColor.surface,

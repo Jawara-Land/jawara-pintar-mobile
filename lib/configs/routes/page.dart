@@ -50,6 +50,16 @@ import 'package:jawara_mobile/modules/features/log_history/views/ui/log_history_
 import 'package:jawara_mobile/modules/features/transfer_channel/bindings/transfer_channel_binding.dart';
 import 'package:jawara_mobile/modules/features/transfer_channel/views/ui/transfer_channel_screen.dart';
 import 'package:jawara_mobile/modules/features/transfer_channel/views/ui/transfer_channel_form_screen.dart';
+import 'package:jawara_mobile/modules/features/event/bindings/event_binding.dart';
+import 'package:jawara_mobile/modules/features/event/bindings/event_form_binding.dart';
+import 'package:jawara_mobile/modules/features/event/view/ui/event_screen.dart';
+import 'package:jawara_mobile/modules/features/event/view/ui/forms/event_form_screen.dart';
+import 'package:jawara_mobile/modules/features/announcement/bindings/announcement_binding.dart';
+import 'package:jawara_mobile/modules/features/announcement/bindings/announcement_form_binding.dart';
+import 'package:jawara_mobile/modules/features/announcement/view/ui/announcement_screen.dart';
+import 'package:jawara_mobile/modules/features/announcement/view/ui/forms/announcement_form_screen.dart';
+import 'package:jawara_mobile/modules/features/app_notification/bindings/app_notification_binding.dart';
+import 'package:jawara_mobile/modules/features/app_notification/view/ui/app_notification_list_screen.dart';
 
 abstract class Pages {
   static final page = [
@@ -239,14 +249,39 @@ abstract class Pages {
       binding: TransferChannelBinding(),
     ),
     GetPage(
+      name: Routes.eventRoute,
+      page: () => const EventScreen(),
+      binding: EventBinding(),
+    ),
+    GetPage(
+      name: Routes.announcementRoute,
+      page: () => const AnnouncementScreen(),
+      binding: AnnouncementBinding(),
+    ),
+    GetPage(
       name: Routes.transferChannelCreateRoute,
       page: () => const TransferChannelFormScreen(),
-      binding: TransferChannelFormBinding(),
+      binding: TransferChannelBinding(),
     ),
     GetPage(
       name: Routes.transferChannelEditRoute,
       page: () => const TransferChannelFormScreen(),
-      binding: TransferChannelFormBinding(),
+      binding: TransferChannelBinding(),
+    ),
+    GetPage(
+      name: Routes.appNotificationRoute,
+      page: () => const AppNotificationListScreen(),
+      binding: AppNotificationBinding(),
+    ),
+    GetPage(
+      name: Routes.eventFormRoute,
+      page: () => const EventFormScreen(),
+      binding: EventFormBinding(),
+    ),
+    GetPage(
+      name: Routes.announcementFormRoute,
+      page: () => const AnnouncementFormScreen(),
+      binding: AnnouncementFormBinding(),
     ),
   ];
 }

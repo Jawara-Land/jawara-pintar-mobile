@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:jawara_mobile/shared/controllers/auth_controller.dart';
 import 'package:jawara_mobile/shared/styles/app_styles.dart';
 import 'package:jawara_mobile/shared/widgets/app_widgets.dart';
+import 'package:jawara_mobile/modules/features/app_notification/controllers/app_notification_controller.dart';
+import 'package:jawara_mobile/configs/routes/route.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -41,20 +43,26 @@ class HomeHeader extends StatelessWidget {
 
           Spacer(),
 
-          BadgeCount(
-            count: 1,
-            size: 16,
-            fontSize: 10,
-            borderRadius: 99,
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.notifications_none,
-                color: AppColor.textTertiary,
-                size: 26,
+          Obx(() {
+            final unreadCount =
+                Get.find<AppNotificationController>().unreadCount.value;
+            return BadgeCount(
+              count: unreadCount,
+              size: 16,
+              fontSize: 10,
+              borderRadius: 99,
+              child: IconButton(
+                onPressed: () {
+                  Get.toNamed(Routes.appNotificationRoute);
+                },
+                icon: Icon(
+                  Icons.notifications_none,
+                  color: AppColor.textTertiary,
+                  size: 26,
+                ),
               ),
-            ),
-          ),
+            );
+          }),
         ],
       ),
     );

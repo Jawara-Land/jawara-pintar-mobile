@@ -88,14 +88,13 @@ class HomeDashboardView extends StatelessWidget {
                     QuickActionItem(
                       icon: Icons.calendar_month,
                       label: 'Kegiatan',
-                      onTap: () {},
+                      onTap: () => Get.toNamed(Routes.eventRoute),
                     ),
                     QuickActionItem(
                       icon: Icons.campaign,
                       label: 'Pengumuman',
-                      onTap: () {},
+                      onTap: () => Get.toNamed(Routes.announcementRoute),
                     ),
-
                     if (!user!.roles.any(
                       (r) => [
                         'treasurer',

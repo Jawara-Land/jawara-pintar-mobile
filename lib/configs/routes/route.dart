@@ -5,6 +5,7 @@ abstract class Routes {
   static const String loginRoute = '/login';
   static const String registerRoute = '/register';
   static const String homeRoute = '/home';
+  static const String eventRoute = '/event';
   static const String announcementRoute = '/announcement';
   static const String aspirationRoute = '/aspiration';
   static const String profileRoute = '/profile';
@@ -60,4 +61,8 @@ abstract class Routes {
   static const String transferChannelRoute = '/transfer-channel';
   static const String transferChannelCreateRoute = '$transferChannelRoute/create';
   static const String transferChannelEditRoute = '$transferChannelRoute/edit';
+  static const String appNotificationRoute = '/app-notifications';
+
+  static const String eventFormRoute = '$eventRoute/form';
+  static const String announcementFormRoute = '$announcementRoute/form';
 }
