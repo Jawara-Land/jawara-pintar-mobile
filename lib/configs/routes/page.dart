@@ -60,6 +60,14 @@ import 'package:jawara_mobile/modules/features/announcement/view/ui/announcement
 import 'package:jawara_mobile/modules/features/announcement/view/ui/forms/announcement_form_screen.dart';
 import 'package:jawara_mobile/modules/features/app_notification/bindings/app_notification_binding.dart';
 import 'package:jawara_mobile/modules/features/app_notification/view/ui/app_notification_list_screen.dart';
+import 'package:jawara_mobile/modules/features/aspiration/bindings/aspiration_binding.dart';
+import 'package:jawara_mobile/modules/features/aspiration/view/ui/aspiration_screen.dart';
+import 'package:jawara_mobile/modules/features/aspiration/view/ui/aspiration_form_screen.dart';
+import 'package:jawara_mobile/modules/features/finance/finance_binding.dart';
+import 'package:jawara_mobile/modules/features/finance/finance_screen.dart';
+import 'package:jawara_mobile/modules/features/finance/view/ui/finance_incomes_screen.dart';
+import 'package:jawara_mobile/modules/features/finance/view/ui/finance_expenses_screen.dart';
+import 'package:jawara_mobile/modules/features/finance/view/ui/finance_report_screen.dart';
 
 abstract class Pages {
   static final page = [
@@ -257,6 +265,36 @@ abstract class Pages {
       name: Routes.announcementRoute,
       page: () => const AnnouncementScreen(),
       binding: AnnouncementBinding(),
+    ),
+    GetPage(
+      name: Routes.aspirationRoute,
+      page: () => const AspirationScreen(),
+      binding: AspirationBinding(),
+    ),
+    GetPage(
+      name: Routes.aspirationFormRoute,
+      page: () => const AspirationFormScreen(),
+      binding: AspirationBinding(),
+    ),
+    GetPage(
+      name: Routes.financeRoute,
+      page: () => const FinanceScreen(),
+      binding: FinanceBinding(),
+    ),
+    GetPage(
+      name: Routes.financeIncomeRoute,
+      page: () => const FinanceIncomesScreen(),
+      binding: FinanceBinding(),
+    ),
+    GetPage(
+      name: Routes.financeExpenseRoute,
+      page: () => const FinanceExpensesScreen(),
+      binding: FinanceBinding(),
+    ),
+    GetPage(
+      name: Routes.financeReportRoute,
+      page: () => const FinanceReportScreen(),
+      binding: FinanceBinding(),
     ),
     GetPage(
       name: Routes.transferChannelCreateRoute,

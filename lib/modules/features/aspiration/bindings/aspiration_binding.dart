@@ -4,6 +4,8 @@ import 'package:jawara_mobile/modules/features/aspiration/controllers/aspiration
 class AspirationBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(AspirationController());
+    if (!Get.isRegistered<AspirationController>()) {
+      Get.lazyPut<AspirationController>(() => AspirationController());
+    }
   }
 }

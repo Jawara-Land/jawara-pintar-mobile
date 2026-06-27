@@ -8,6 +8,11 @@ abstract class Routes {
   static const String eventRoute = '/event';
   static const String announcementRoute = '/announcement';
   static const String aspirationRoute = '/aspiration';
+  static const String aspirationFormRoute = '$aspirationRoute/form';
+  static const String financeRoute = '/finance';
+  static const String financeIncomeRoute = '$financeRoute/incomes';
+  static const String financeExpenseRoute = '$financeRoute/expenses';
+  static const String financeReportRoute = '$financeRoute/report';
   static const String profileRoute = '/profile';
   static const String dataRoute = '/data';
   static const String dataDetailRoute = '$dataRoute/detail';

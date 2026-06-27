@@ -84,7 +84,6 @@ class HomeDashboardView extends StatelessWidget {
                       label: 'Pengeluaran',
                       onTap: () => Get.toNamed(Routes.expenseRoute),
                     ),
-                    QuickActionItem(icon: Icons.description, label: 'Laporan'),
                     QuickActionItem(
                       icon: Icons.calendar_month,
                       label: 'Kegiatan',
@@ -113,7 +112,12 @@ class HomeDashboardView extends StatelessWidget {
                     QuickActionItem(
                       icon: Icons.message,
                       label: 'Pesan Warga',
-                      onTap: () {},
+                      onTap: () => Get.toNamed(Routes.aspirationRoute),
+                    ),
+                    QuickActionItem(
+                      icon: Icons.account_balance,
+                      label: 'Laporan Keuangan',
+                      onTap: () => Get.toNamed(Routes.financeReportRoute),
                     ),
                     QuickActionItem(
                       icon: Icons.manage_accounts,

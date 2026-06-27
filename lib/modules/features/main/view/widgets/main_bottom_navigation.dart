@@ -16,7 +16,7 @@ class MainBottomNavigation extends StatelessWidget {
     const items = [
       _MainNavItem(icon: Icons.home, label: 'Beranda'),
       _MainNavItem(icon: Icons.campaign, label: 'Pengumuman'),
-      _MainNavItem(icon: Icons.chat_bubble_outline, label: 'Pesan'),
+      _MainNavItem(icon: Icons.chat_bubble_outline, label: 'Pesan Warga'),
       _MainNavItem(icon: Icons.person_outline, label: 'Profil'),
     ];
 

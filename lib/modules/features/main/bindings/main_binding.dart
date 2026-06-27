@@ -3,6 +3,7 @@ import 'package:jawara_mobile/modules/features/main/controllers/main_controller.
 import 'package:jawara_mobile/modules/features/home/bindings/home_binding.dart';
 import 'package:jawara_mobile/modules/features/announcement/bindings/announcement_binding.dart';
 import 'package:jawara_mobile/modules/features/aspiration/bindings/aspiration_binding.dart';
+import 'package:jawara_mobile/modules/features/finance/finance_binding.dart';
 import 'package:jawara_mobile/modules/features/profile/bindings/profile_binding.dart';
 import 'package:jawara_mobile/modules/features/app_notification/controllers/app_notification_controller.dart';
 
@@ -15,6 +16,7 @@ class MainBinding extends Bindings {
     HomeBinding().dependencies();
     AnnouncementBinding().dependencies();
     AspirationBinding().dependencies();
+    FinanceBinding().dependencies();
     ProfileBinding().dependencies();
   }
 }
